@@ -1,0 +1,2 @@
+# sisteminis-programavimas
+Savarankiskos uzduotys
