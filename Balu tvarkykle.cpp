@@ -5,7 +5,8 @@
 #include <algorithm>
 #include <sstream>
 #include <stdlib.h>   
-#include <time.h>      
+#include <time.h>  
+#include <fstream>
 
 using namespace std;
 
@@ -15,6 +16,9 @@ int getHomeworkGradeCalculationType();
 vector<int> getHomeworkGradesFromInput();
 string resolveCalculationType(int);
 void printHeadline(string);
+void processStudentsFromFile();
+void processStudentsFromInput();
+void printHeadlineWithAverageAndMedian();
 
 
 class Student {
@@ -66,16 +70,27 @@ public:
 
     double calculateFinal(int calculationType) {
         if (0 == calculationType) {
-            return 0.4 * calculateHomeworkAverage() + 0.6 * examGrade;
+            return calculateFinalWithAverage();
         }
         else {
-            return 0.4 * calculateHomeworkMedian() + 0.6 * examGrade;
+            return calculateFinalWithMedian();
         }
-       
+    }
+
+    double calculateFinalWithAverage() {
+        return 0.4 * calculateHomeworkAverage() + 0.6 * examGrade;
+    }
+
+    double calculateFinalWithMedian() {
+        return 0.4 * calculateHomeworkMedian() + 0.6 * examGrade;
     }
 
     void printStudentData(int calculationType) {
         cout << firstName <<"    " << lastName << "    " << fixed << setprecision(2) << calculateFinal(calculationType) << endl;
+    }
+
+    void printStudentDataWithAverageAndMedian() {
+        cout << firstName << "    " << lastName << "    " << fixed << setprecision(2) << calculateFinalWithAverage() << "              " << calculateFinalWithMedian() << endl;
     }
 
 };
@@ -85,37 +100,16 @@ Student executeInpuGradesPath();
 
 int main()
 {
-
-    cout << "Ar balai turi buti sugeneruoti? y - taip, n - ne: ";
-    char answer;
-    cin >> answer;
-    int calculationTypeNumber = getHomeworkGradeCalculationType();
-    cout << "Iveskite studentu skaiciu, kuriuos noresite suvesti: ";
-    int studentCount;
-    cin >> studentCount;
-   
-    vector<Student> students;
-
-    if (answer == 'y') {
-        for (int i = 0; i < studentCount; i++) {
-            students.push_back(executeGeneratedGradesPath());
-        }
-    }
-    else if (answer == 'n') {
-        for (int i = 0; i < studentCount; i++) {
-            students.push_back(executeInpuGradesPath());
-        }
+    cout << "Apdoroti studentus is failo? y - TAIP, n -NE: ";
+    char fileAnswer;
+    cin >> fileAnswer;
+    if (fileAnswer == 'y') {
+        processStudentsFromFile();
     }
     else {
-        cout << "Ivestas netinkamas simbolis";
-        return 0;
+        processStudentsFromInput();
     }
-
-    string calculationTypeText = resolveCalculationType(calculationTypeNumber);
-    printHeadline(calculationTypeText);
-    for (int i = 0; i < students.size(); i++) {
-        students[i].printStudentData(calculationTypeNumber);
-    }
+   
 }
 
 Student executeInpuGradesPath() {
@@ -210,5 +204,82 @@ void printHeadline(string homeworkCalculationTypeText) {
     cout << endl;
     cout << "Pavarde    Vardas    " << homeworkCalculationTypeText << endl;
     cout << "------------------------------------------" << endl;
+}
+
+void printHeadlineWithAverageAndMedian() {
+    cout << endl;
+    cout << "Pavarde    Vardas    Galutinis (vid.)    Galutinis(med.)" << endl;
+    cout << "-------------------------------------------------------------" << endl;
+}
+
+void processStudentsFromFile() {
+    ifstream file("kursiokai.txt");
+    string firstName;
+    string lastName;
+    int nd1;
+    int nd2;
+    int nd3;
+    int nd4;
+    int nd5;
+    int exam;
+    int lineNumber = 0;
+    vector<Student> students;
+    
+    for(string line; getline(file, line);) {
+        if (lineNumber == 0) {
+            lineNumber++;
+            continue;
+        }
+
+        stringstream ssin(line);
+        ssin >> firstName >> lastName >> nd1 >> nd2 >> nd3 >> nd4 >> nd5 >> exam;
+        vector<int> homeworkGrades;
+        homeworkGrades.push_back(nd1);
+        homeworkGrades.push_back(nd2);
+        homeworkGrades.push_back(nd3);
+        homeworkGrades.push_back(nd4);
+        homeworkGrades.push_back(nd5);
+        Student student(firstName, lastName, homeworkGrades, exam);
+        students.push_back(student);
+    }
+
+    string headline = resolveCalculationType(0);
+    printHeadlineWithAverageAndMedian();
+    for (int i = 0; i < students.size(); i++) {
+        students[i].printStudentDataWithAverageAndMedian();
+    }
+}
+
+void processStudentsFromInput() {
+    cout << "Ar balai turi buti sugeneruoti? y - taip, n - ne: ";
+    char answer;
+    cin >> answer;
+    int calculationTypeNumber = getHomeworkGradeCalculationType();
+    cout << "Iveskite studentu skaiciu, kuriuos noresite suvesti: ";
+    int studentCount;
+    cin >> studentCount;
+
+    vector<Student> students;
+
+    if (answer == 'y') {
+        for (int i = 0; i < studentCount; i++) {
+            students.push_back(executeGeneratedGradesPath());
+        }
+    }
+    else if (answer == 'n') {
+        for (int i = 0; i < studentCount; i++) {
+            students.push_back(executeInpuGradesPath());
+        }
+    }
+    else {
+        cout << "Ivestas netinkamas simbolis";
+        return;
+    }
+
+    string calculationTypeText = resolveCalculationType(calculationTypeNumber);
+    printHeadline(calculationTypeText);
+    for (int i = 0; i < students.size(); i++) {
+        students[i].printStudentData(calculationTypeNumber);
+    }
 }
 
