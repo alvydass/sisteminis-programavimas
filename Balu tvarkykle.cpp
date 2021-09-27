@@ -86,11 +86,11 @@ public:
     }
 
     void printStudentData(int calculationType) {
-        cout << firstName <<"    " << lastName << "    " << fixed << setprecision(2) << calculateFinal(calculationType) << endl;
+        cout << setw(10) << left << firstName << setw(10) << left << lastName << setw(20) << left << fixed << setprecision(2) << calculateFinal(calculationType) << endl;
     }
 
     void printStudentDataWithAverageAndMedian() {
-        cout << firstName << "    " << lastName << "    " << fixed << setprecision(2) << calculateFinalWithAverage() << "              " << calculateFinalWithMedian() << endl;
+        cout << setw(10) << left << firstName << setw(15) << left <<lastName << setw(20) << left << fixed << setprecision(2) << calculateFinalWithAverage() << setw(10) << left << calculateFinalWithMedian() << endl;
     }
 
     string getFirstName() {
@@ -205,7 +205,7 @@ string resolveCalculationType(int calculationTypeNumber) {
 
 void printHeadline(string homeworkCalculationTypeText) {
     cout << endl;
-    cout << "Pavarde    Vardas    " << homeworkCalculationTypeText << endl;
+    cout << setw(10) << left << "Pavarde" << setw(10) << left << "Vardas" << setw(10) << left <<  homeworkCalculationTypeText << endl;
     cout << "------------------------------------------" << endl;
 }
 
