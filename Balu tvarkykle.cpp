@@ -1,11 +1,11 @@
-﻿#include <iostream>
+#include <iostream>
 #include <string>
 #include <iomanip>
-#include <vector> 
+#include <vector>
 #include <algorithm>
 #include <sstream>
-#include <stdlib.h>   
-#include <time.h>  
+#include <stdlib.h>
+#include <time.h>
 #include <fstream>
 
 using namespace std;
@@ -23,7 +23,7 @@ void printHeadlineWithAverageAndMedian();
 
 class Student {
 
-private: 
+private:
     string firstName;
     string lastName;
     vector<int> homeworkGrades;
@@ -55,7 +55,7 @@ public:
         for (int homeworkGrade : homeworkGrades) {
             gradeSum += homeworkGrade;
         }
-       return gradeSum / (double)homeworkGrades.size();
+        return gradeSum / (double)homeworkGrades.size();
     }
 
     double calculateHomeworkMedian() {
@@ -93,10 +93,13 @@ public:
         cout << firstName << "    " << lastName << "    " << fixed << setprecision(2) << calculateFinalWithAverage() << "              " << calculateFinalWithMedian() << endl;
     }
 
+    string getFirstName() {
+        return this->firstName;
+    }
 };
 
 Student executeGeneratedGradesPath();
-Student executeInpuGradesPath();
+Student executeInputGradesPath();
 
 int main()
 {
@@ -109,10 +112,10 @@ int main()
     else {
         processStudentsFromInput();
     }
-   
+
 }
 
-Student executeInpuGradesPath() {
+Student executeInputGradesPath() {
 
     string firstName = getInputFirstName();
     string lastName = getInputLastName();
@@ -124,10 +127,10 @@ Student executeInpuGradesPath() {
     getline(cin, line);
     istringstream iss(line);
     int grade;
-     while (iss >> grade)
-     {
-         homeworkGrades.push_back(grade);
-     }
+    while (iss >> grade)
+    {
+        homeworkGrades.push_back(grade);
+    }
 
     cout << "Iveskite egzamino rezultata: ";
     int examGrade;
@@ -224,7 +227,7 @@ void processStudentsFromFile() {
     int exam;
     int lineNumber = 0;
     vector<Student> students;
-    
+
     for(string line; getline(file, line);) {
         if (lineNumber == 0) {
             lineNumber++;
@@ -242,6 +245,10 @@ void processStudentsFromFile() {
         Student student(firstName, lastName, homeworkGrades, exam);
         students.push_back(student);
     }
+
+    sort(students.begin(), students.end(), [](Student lhs, Student rhs) {
+        return lhs.getFirstName() < rhs.getFirstName();
+    });
 
     string headline = resolveCalculationType(0);
     printHeadlineWithAverageAndMedian();
@@ -268,7 +275,7 @@ void processStudentsFromInput() {
     }
     else if (answer == 'n') {
         for (int i = 0; i < studentCount; i++) {
-            students.push_back(executeInpuGradesPath());
+            students.push_back(executeInputGradesPath());
         }
     }
     else {
