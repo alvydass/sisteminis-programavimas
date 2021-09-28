@@ -7,7 +7,7 @@ Išpildyti visi reikalavimai nurodyti V0.1 versijoje (pavyzdys kaip naudotis nur
 * Po šio pasirinkimo vartotojo yra prašoma įvesti varda, pavarde, suvesti savarankiško darbo balus (neprašo jei pasirinkta generuoti) ir įvesti egzamino rezultata (neprašo jei pasirinkta generuoti).
 * Vartotojas taip pat yra klausiamas ar galutinis rezultatas turi būti paskaičiuojamas pagal vidurkį ar pagal medianą (pasirinkus, atitinkamai išspauzdina rezultatą).
 * Viską suvedus, sistema paskaišiuoja kiekvieno studento/ų galutinį balą, išrušiuoja studentus pagal vardą ir išspauzdina suformatuota lentelę su duomenimis kaip nurodyta pavyzdyje.
-* Studentu sąrašui ir namų darbų balams caupti naudotas vector. Išimčių valdymas naudotas dalybai iš 0. Sukurtos atskiri antraštiniai failai studentų apdorojimui iš failo, studentų apdorojimui iš komandinės eilutės, atskiras failas tik main funkcijai. Taip pat sukurtas atskiras GeneralUtils failas kuriami kaupiami metodai kurie bus naudojami tiek studentu apdorojimui iš failo tiek apdorojimui iš komandinės eilutės (reusability).
+* Studentu sąrašui ir namų darbų balams caupti naudotas vector. Išimčių valdymas naudotas dalybai iš 0. Sukurtos atskiri antraštiniai failai studentų apdorojimui iš failo (StudentFileProcessor), studentų apdorojimui iš komandinės eilutės (StudentConsoleInputProcessor), atskiras failas tik main funkcijai (Balu tvarkykle) ir atskirta Student klasė. Taip pat sukurtas atskira failas (GeneralUtils) kuriami kaupiami metodai kurie bus naudojami tiek studentu apdorojimui iš failo tiek apdorojimui iš komandinės eilutės (reusability).
 
 ### Pavyzdys
  Apdoroti studentus is failo? y - TAIP, n -NE:n  
