@@ -27,7 +27,14 @@ double Student::calculateHomeworkAverage() {
     for (int homeworkGrade : homeworkGrades) {
         gradeSum += homeworkGrade;
     }
-    return gradeSum / (double)homeworkGrades.size();
+    double average;
+    try {
+        average = gradeSum / (double) homeworkGrades.size();
+    } catch (exception& e) {
+        cout << "Division by zero in average calculation";
+        average = 0;
+    }
+    return average;
 }
 
 double  Student::calculateHomeworkMedian() {
