@@ -1,12 +1,27 @@
 #include <iostream>
 #include "StudentFileProcessor.h"
 #include "StudentConsoleInputProcessor.h"
+#include "StudentFIleGenerator.h"
+#include <chrono>
 
-using namespace std;
+using namespace std::chrono;
 
 int main()
 {
-    cout << "Apdoroti studentus is failo? y - TAIP, n -NE: ";
+
+    StudentFileGenerator generator;
+
+    auto start = high_resolution_clock::now();
+    generator.createStudentFile(1);
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(stop - start);
+    cout << "Student file generation in milliseconds: " << duration.count() << endl;
+
+    StudentFileProcessor studentFileProcessor;
+    studentFileProcessor.processStudentsFromFile("generatedStudentFile.txt", true);
+
+
+    /*cout << "Apdoroti studentus is failo? y - TAIP, n -NE: ";
     char fileAnswer;
     cin >> fileAnswer;
     if (fileAnswer == 'y') {
@@ -16,5 +31,5 @@ int main()
     else {
         StudentConsoleInputProcessor studentConsoleInputProcessor;
         studentConsoleInputProcessor.processStudentsFromInput();
-    }
+    }*/
 }

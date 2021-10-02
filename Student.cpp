@@ -3,11 +3,12 @@
 using namespace std;
 
 
-Student::Student(string firstName, string lastName, vector<int> homeworkGrades, int examGrade) {
+Student::Student(string firstName, string lastName, const vector<int>& homeworkGrades, int examGrade) {
     this->firstName = firstName;
     this->lastName = lastName;
     this->homeworkGrades = homeworkGrades;
     this->examGrade = examGrade;
+    this->finalGrade = calculateFinalWithAverage();
 }
 
 Student::Student(const Student &student) {
@@ -15,7 +16,7 @@ Student::Student(const Student &student) {
     lastName = student.lastName;
     homeworkGrades = student.homeworkGrades;
     examGrade = student.examGrade;
-    finalGrade = student.examGrade;
+    finalGrade = student.finalGrade;
 }
 
 Student::~Student() {
@@ -74,4 +75,12 @@ void  Student::printStudentDataWithAverageAndMedian() {
 
 string  Student::getFirstName() {
     return this->firstName;
+}
+
+string  Student::getLastName() {
+    return this->lastName;
+}
+
+double Student::getFinalGrade() {
+    return this->finalGrade;
 }

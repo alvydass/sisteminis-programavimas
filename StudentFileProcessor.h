@@ -4,13 +4,19 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include "Student.h"
+
 using namespace std;
 
 class StudentFileProcessor {
 public:
-    void processStudentsFromFile();
+    void processStudentsFromFile(string fileName, bool createFiles);
 
     void printHeadlineWithAverageAndMedian();
+
+    void differentiateStudentsToFiles(const vector<Student>& students);
+
+    void sortAndPrintStudentsToConsole(vector<Student> students);
 };
 
 #endif //UNTITLED_STUDENTFILEPROCESSOR_H
