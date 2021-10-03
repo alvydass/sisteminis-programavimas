@@ -114,3 +114,6 @@ Zilvinas  Nezalias  7.20
 
 Pastebėta, kad naudojant list arba deque, uskaitymas iš failų ir studentų rūšiavimas vyksta šiek tiek greičiau nei naudojant vector.  
 Greičio skirtumo tarp list ir deque nepastebėta arba jis labai nežymus.
+ 
+## Versija: V1.0  
+Bus papildyta
