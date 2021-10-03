@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <deque>
 #include "Student.h"
 
 using namespace std;
@@ -14,7 +15,7 @@ public:
 
     void printHeadlineWithAverageAndMedian();
 
-    void differentiateStudentsToFiles(const vector<Student>& students);
+    void differentiateStudentsToFiles(const deque<Student>& students);
 
     void sortAndPrintStudentsToConsole(vector<Student> students);
 };

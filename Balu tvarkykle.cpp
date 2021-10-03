@@ -12,7 +12,7 @@ int main()
     StudentFileGenerator generator;
 
     auto start = high_resolution_clock::now();
-    generator.createStudentFile(1);
+    generator.createStudentFile(10000000);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(stop - start);
     cout << "Student file generation in milliseconds: " << duration.count() << endl;

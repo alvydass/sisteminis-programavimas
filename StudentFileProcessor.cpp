@@ -2,6 +2,7 @@
 #include "Student.h"
 #include "GeneralUtils.h"
 #include <chrono>
+#include <deque>
 
 using namespace std::chrono;
 
@@ -16,7 +17,7 @@ void StudentFileProcessor::processStudentsFromFile(string fileName, bool createF
     int nd5;
     int exam;
     int lineNumber = 0;
-    vector<Student> students;
+    deque<Student> students;
 
     auto start = high_resolution_clock::now();
     for(string line; getline(file, line);) {
@@ -45,7 +46,7 @@ void StudentFileProcessor::processStudentsFromFile(string fileName, bool createF
 
     } else {
 
-      sortAndPrintStudentsToConsole(students);
+      //sortAndPrintStudentsToConsole(students);
     }
 }
 
@@ -55,9 +56,9 @@ void StudentFileProcessor::printHeadlineWithAverageAndMedian() {
     cout << "-------------------------------------------------------------" << endl;
 }
 
-void StudentFileProcessor::differentiateStudentsToFiles(const vector<Student>& students) {
-    vector<Student> lopukai;
-    vector<Student> kietekai;
+void StudentFileProcessor::differentiateStudentsToFiles(const deque<Student>& students) {
+    deque<Student> lopukai;
+    deque<Student> kietekai;
     auto start = high_resolution_clock::now();
     for(Student student : students) {
         if (student.getFinalGrade() < 5) {
