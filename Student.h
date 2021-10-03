@@ -16,10 +16,10 @@ private:
     string lastName;
     vector<int> homeworkGrades;
     int examGrade;
-    int finalGrade;
+    double finalGrade;
 
 public:
-    Student(string firstName, string lastName, vector<int> homeworkGrades, int examGrade);
+    Student(string firstName, string lastName, const vector<int>& homeworkGrades, int examGrade);
 
     Student(const Student &student);
 
@@ -40,6 +40,10 @@ public:
     void printStudentDataWithAverageAndMedian();
 
     string getFirstName();
+
+    double getFinalGrade();
+
+    string getLastName();
 };
 
 #endif //UNTITLED_STUDENT_H
