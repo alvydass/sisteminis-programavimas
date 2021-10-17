@@ -3,6 +3,7 @@
 #include "GeneralUtils.h"
 #include <chrono>
 #include <deque>
+#include <list>
 
 using namespace std::chrono;
 
@@ -17,7 +18,7 @@ void StudentFileProcessor::processStudentsFromFile(string fileName, bool createF
     int nd5;
     int exam;
     int lineNumber = 0;
-    deque<Student> students;
+    list<Student> students;
 
     auto start = high_resolution_clock::now();
     for(string line; getline(file, line);) {
@@ -56,26 +57,28 @@ void StudentFileProcessor::printHeadlineWithAverageAndMedian() {
     cout << "-------------------------------------------------------------" << endl;
 }
 
-void StudentFileProcessor::differentiateStudentsToFiles(const deque<Student>& students) {
-    deque<Student> lopukai;
-    deque<Student> kietekai;
+void StudentFileProcessor::differentiateStudentsToFiles(list<Student>& students) {
     auto start = high_resolution_clock::now();
-    for(Student student : students) {
-        if (student.getFinalGrade() < 5) {
-            lopukai.push_back(student);
-        } else {
-            kietekai.push_back(student);
+    list<Student> lopukai;
+
+    auto i = std::begin(students);
+    while (i != std::end(students)) {
+        if (i->getFinalGrade() < 5) {
+            lopukai.push_back(i->getStudent());
+            i = students.erase(i);
         }
+        else {
+            ++i; }
+
     }
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(stop - start);
     cout << "Student file sorting in 2 groups in milliseconds: " << duration.count() << endl;
-
-
+    
     auto start1 = high_resolution_clock::now();
     ofstream kietekuFailas ("kietekai.txt");
     kietekuFailas << setw(50) << left <<"Vardas"<< setw(50) << left <<"Pavarde"<< setw(50) << left <<"Galutinis"<< endl;
-    for(Student student : kietekai) {
+    for(Student student : students) {
         kietekuFailas << setw(50) << left <<student.getFirstName()<< setw(50) << left <<student.getLastName()<< setw(50) << left<< fixed << setprecision(2) <<student.getFinalGrade()<< endl;
     }
     kietekuFailas.close();
