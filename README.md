@@ -114,3 +114,82 @@ Zilvinas  Nezalias  7.20
 
 Pastebėta, kad naudojant list arba deque, uskaitymas iš failų ir studentų rūšiavimas vyksta šiek tiek greičiau nei naudojant vector.  
 Greičio skirtumo tarp list ir deque nepastebėta arba jis labai nežymus.
+ 
+## Versija: V1.0  
+
+ **1 strategija:** Bendro studentai konteinerio (vector, list ir deque tipų) skaidymas (rūšiavimas) į du naujus to paties tipo konteinerius: "vargšiukų" ir "kietiakų". Rezultatai nelabai pasikeitė naudojant vienodus konteinerius (pasikeitė bet nereikšmingai - 2 sekundėmis greičiau):  
+**Deque Studentų rūšiavimas į dvi grupes/kategorijas:**  
+1000 - 4 ms  
+10 000 - 38 ms  
+100 000 - 422 ms (0.4 s)  
+1000 000 - 4325 ms (4.3 s)  
+10 000 000 - 42557 ms (42 s)  
+ 
+**List Studentų rūšiavimas į dvi grupes/kategorijas:**    
+1000 - 3 ms  
+10 000 - 48 ms  
+100 000 - 398 ms  
+1000 000 - 4425 ms (4.4 s)  
+10 000 000 - 41576 ms (41 s)
+
+**Vector Studentų rūšiavimas į dvi grupes/kategorijas:**  
+1000 - 8 ms  
+10 000 - 101 ms  
+100 000 - 1054 ms (1 s)  
+1000 000 - 9645 ms (9.6 s)  
+10 000 000 - 97564 ms (98 s)  
+ 
+**2 strategija:** Bendro studentų konteinerio (vector, list ir deque) skaidymas (rūšiavimas) panaudojant tik vieną naują konteinerį: "vargšiukai". Tokiu būdu, jei studentas yra vargšiukas, jį turime įkelti į naująjį "vargšiukų" konteinerį ir ištrinti iš bendro studentai konteinerio. Po šio žingsnio studentai konteineryje liks vien tik kietiakai.  
+Rezultatai: 
+Naudotas algoritmas trynimui iš studentų konteinerio ir kopijavimui į lopukų konteinerį:  
+list<Student> lopukai;
+
+    auto i = std::begin(students);
+    while (i != std::end(students)) {
+        if (i->getFinalGrade() < 5) {
+            lopukai.push_back(i->getStudent());
+            i = students.erase(i);
+        }
+        else {
+            ++i; }
+
+    }
+
+Algoritmas greičiausiai dirbo su list konteineriais - 5 kartu greičiau už deque ir 10 kartų greičiau už vector. Konteineriai pagal greituma:  
+1. list  
+2. deque  
+3. vector  
+
+Trinant:  
+deque:  
+studentų rūšiąvimas į dvi grupes/kategorijas: 
+1000 - 20 ms  
+10 000 - 402 ms  
+100 000 - 17423 ms (17 s)  
+1000 000 - 38486 ms (38 s)  
+
+list:  
+studentų rūšiąvimas į dvi grupes/kategorijas:  
+1000 - 4 ms  
+10 000 - 58 ms  
+100 000 - 566 ms (0.5 s)  
+1000 000 - 5780 ms 5.7 s)  
+
+vector:  
+studentų rūšiąvimas į dvi grupes/kategorijas:  
+1000 - 101 ms  
+10 000 - 10015 ms  
+100 000 - 145462 ms (145 s)  
+1000 000 - 2687462 ms (268 s)  
+
+**3 strategija:** Panaudojant std::remove_copy_if i remove_if algortimus:  
+Rezultatai:  
+ vector
+studentų rūšiąvimas į dvi grupes/kategorijas:  
+1000 - 9 ms  
+10 000 - 124 ms  
+100 000 - 1359 ms (1.3 s)  
+1000 000 - 11802 ms (11s s)  
+ 
+Naudojant šiuos algoritmus rūšiavimo rezultatas naudojant vector tipo konteinerį, daug geresnis(greičiau 20 kartų) negu palyginus su savo paties pasirašytu algorimtu.
+ 
