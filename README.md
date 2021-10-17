@@ -182,5 +182,14 @@ studentų rūšiąvimas į dvi grupes/kategorijas:
 100 000 - 145462 ms (145 s)  
 1000 000 - 2687462 ms (268 s)  
 
-**3 strategija:** Panaudojant std::remove_copy_if algortimą:  
+**3 strategija:** Panaudojant std::remove_copy_if i remove_if algortimus:  
+Rezultatai:  
+ vector
+studentų rūšiąvimas į dvi grupes/kategorijas:  
+1000 - 9 ms  
+10 000 - 124 ms  
+100 000 - 1359 ms (1.3 s)  
+1000 000 - 11802 ms (11s s)  
+ 
+Naudojant šiuos algoritmus rūšiavimo rezultatas naudojant vector tipo konteinerį, daug geresnis(greičiau 20 kartų) negu palyginus su savo paties pasirašytu algorimtu.
  
