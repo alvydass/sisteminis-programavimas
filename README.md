@@ -116,4 +116,28 @@ Pastebėta, kad naudojant list arba deque, uskaitymas iš failų ir studentų r�
 Greičio skirtumo tarp list ir deque nepastebėta arba jis labai nežymus.
  
 ## Versija: V1.0  
-Bus papildyta
+
+ **1 strategija:** Bendro studentai konteinerio (vector, list ir deque tipų) skaidymas (rūšiavimas) į du naujus to paties tipo konteinerius: "vargšiukų" ir "kietiakų". Rezultatai nelabai pasikeitė naudojant vienodus konteinerius (pasikeitė bet nereikšmingai - 2 sekundėmis greičiau):  
+**Deque Studentų rūšiavimas į dvi grupes/kategorijas:**  
+1000 - 4 ms  
+10 000 - 38 ms  
+100 000 - 422 ms (0.4 s)  
+1000 000 - 4325 ms (4.3 s)  
+10 000 000 - 42557 ms (42 s)  
+ 
+**List Studentų rūšiavimas į dvi grupes/kategorijas:**    
+1000 - 3 ms  
+10 000 - 48 ms  
+100 000 - 398 ms  
+1000 000 - 4425 ms (4.4 s)  
+10 000 000 - 41576 ms (41 s)
+
+**Vector Studentų rūšiavimas į dvi grupes/kategorijas:**  
+1000 - 8 ms  
+10 000 - 101 ms  
+100 000 - 1054 ms (1 s)  
+1000 000 - 9645 ms (9.6 s)  
+10 000 000 - 97564 ms (98 s)  
+ 
+**2 strategija:** Bendro studentų konteinerio (vector, list ir deque) skaidymas (rūšiavimas) panaudojant tik vieną naują konteinerį: "vargšiukai". Tokiu būdu, jei studentas yra vargšiukas, jį turime įkelti į naująjį "vargšiukų" konteinerį ir ištrinti iš bendro studentai konteinerio. Po šio žingsnio studentai konteineryje liks vien tik kietiakai.  
+Rezultatai:
