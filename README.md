@@ -140,4 +140,44 @@ Greičio skirtumo tarp list ir deque nepastebėta arba jis labai nežymus.
 10 000 000 - 97564 ms (98 s)  
  
 **2 strategija:** Bendro studentų konteinerio (vector, list ir deque) skaidymas (rūšiavimas) panaudojant tik vieną naują konteinerį: "vargšiukai". Tokiu būdu, jei studentas yra vargšiukas, jį turime įkelti į naująjį "vargšiukų" konteinerį ir ištrinti iš bendro studentai konteinerio. Po šio žingsnio studentai konteineryje liks vien tik kietiakai.  
-Rezultatai:
+Rezultatai: 
+Naudotas algoritmas trynimui iš studentų konteinerio ir kopijavimui į lopukų konteinerį:  
+list<Student> lopukai;
+
+    auto i = std::begin(students);
+    while (i != std::end(students)) {
+        if (i->getFinalGrade() < 5) {
+            lopukai.push_back(i->getStudent());
+            i = students.erase(i);
+        }
+        else {
+            ++i; }
+
+    }
+
+Algoritmas greičiausiai dirbo su list konteineriais - 5 kartu greičiau už deque ir 10 kartų greičiau už vector. Konteineriai pagal greituma:  
+1. list  
+2. deque  
+3. vector  
+
+Trinant:
+deque:
+studentų rūšiąvimas į dvi grupes/kategorijas:
+1000 - 20 ms
+10 000 - 402 ms
+100 000 - 17423 ms (17 s)
+1000 000 - 38486 ms (38 s)
+
+list:
+studentų rūšiąvimas į dvi grupes/kategorijas:
+1000 - 4 ms
+10 000 - 58 ms
+100 000 - 566 ms (0.5 s)
+1000 000 - 5780 ms 5.7 s)
+
+vector:
+studentų rūšiąvimas į dvi grupes/kategorijas:
+1000 - 101 ms
+10 000 - 10015 ms
+100 000 - 145462 ms (145 s)
+1000 000 - 2687462 ms (268 s)
