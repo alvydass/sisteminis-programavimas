@@ -181,3 +181,6 @@ studentų rūšiąvimas į dvi grupes/kategorijas:
 10 000 - 10015 ms  
 100 000 - 145462 ms (145 s)  
 1000 000 - 2687462 ms (268 s)  
+
+**3 strategija:** Panaudojant std::remove_copy_if algortimą:  
+ 
