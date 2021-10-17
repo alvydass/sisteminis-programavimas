@@ -16,7 +16,7 @@ public:
 
     void printHeadlineWithAverageAndMedian();
 
-    void differentiateStudentsToFiles(list<Student>& students);
+    void differentiateStudentsToFiles(vector<Student>& students);
 
     void sortAndPrintStudentsToConsole(vector<Student> students);
 };

@@ -18,7 +18,7 @@ void StudentFileProcessor::processStudentsFromFile(string fileName, bool createF
     int nd5;
     int exam;
     int lineNumber = 0;
-    list<Student> students;
+    vector<Student> students;
 
     auto start = high_resolution_clock::now();
     for(string line; getline(file, line);) {
@@ -57,20 +57,17 @@ void StudentFileProcessor::printHeadlineWithAverageAndMedian() {
     cout << "-------------------------------------------------------------" << endl;
 }
 
-void StudentFileProcessor::differentiateStudentsToFiles(list<Student>& students) {
+void StudentFileProcessor::differentiateStudentsToFiles(vector<Student>& students) {
     auto start = high_resolution_clock::now();
-    list<Student> lopukai;
+    vector<Student> lopukai;
 
-    auto i = std::begin(students);
-    while (i != std::end(students)) {
-        if (i->getFinalGrade() < 5) {
-            lopukai.push_back(i->getStudent());
-            i = students.erase(i);
-        }
-        else {
-            ++i; }
 
-    }
+    remove_copy_if(students.begin(), students.end(),std::back_inserter(lopukai),
+                                                                           [](Student s) {return s.getFinalGrade() >= 5;});
+
+    remove_if(students.begin(), students.end(),
+                                                 [](Student s) { return s.getFinalGrade() < 5; });
+
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(stop - start);
     cout << "Student file sorting in 2 groups in milliseconds: " << duration.count() << endl;
